@@ -1,6 +1,7 @@
 /* ========================================
    KATHA — App Logic
-   Theme switching, navigation, bookmarks
+   Theme switching, navigation, bookmarks,
+   emoji reactions
    ======================================== */
 
 (function () {
@@ -11,6 +12,7 @@
     currentTheme: localStorage.getItem('katha-theme') || 'warm',
     currentSection: 'featured',
     bookmarks: JSON.parse(localStorage.getItem('katha-bookmarks') || '[]'),
+    reactions: JSON.parse(localStorage.getItem('katha-reactions') || '{}'),
   };
 
   // ---- DOM References ----
@@ -24,6 +26,7 @@
   const bottomNavItems = document.querySelectorAll('.bottom-nav-item');
   const sections = document.querySelectorAll('.section');
   const bookmarkBtns = document.querySelectorAll('.bookmark-btn');
+  const emojiPicker = document.getElementById('emojiPicker');
 
   // ---- Theme ----
   function setTheme(theme) {
@@ -95,11 +98,7 @@
   });
 
   bottomNavItems.forEach(item => {
-    if (item.classList.contains('write-btn')) {
-      item.addEventListener('click', () => {
-        showToast('✍️ Write feature coming soon!');
-      });
-    } else if (item.dataset.section) {
+    if (item.dataset.section) {
       item.addEventListener('click', () => switchSection(item.dataset.section));
     }
   });
@@ -146,6 +145,171 @@
 
   updateBookmarksSection();
 
+  // ---- Emoji Reactions ----
+  let activeAddBtn = null;
+
+  // Generate a unique key for each story card
+  function getStoryKey(card) {
+    const title = card.querySelector('.story-title');
+    return title ? title.textContent.trim().substring(0, 30) : null;
+  }
+
+  // Restore saved reaction states
+  document.querySelectorAll('.story-card').forEach(card => {
+    const key = getStoryKey(card);
+    if (!key) return;
+    const savedReactions = state.reactions[key] || [];
+
+    card.querySelectorAll('.reaction-btn:not(.add-reaction)').forEach(btn => {
+      const emoji = btn.dataset.emoji;
+      if (savedReactions.includes(emoji)) {
+        btn.classList.add('reacted');
+        // Increment the count since we saved it
+      }
+    });
+  });
+
+  // Handle clicking existing reaction buttons
+  document.querySelectorAll('.reaction-btn:not(.add-reaction)').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const card = btn.closest('.story-card');
+      const key = getStoryKey(card);
+      const emoji = btn.dataset.emoji;
+      const countEl = btn.querySelector('.reaction-count');
+      let count = parseInt(countEl.textContent) || 0;
+
+      if (btn.classList.contains('reacted')) {
+        btn.classList.remove('reacted');
+        count = Math.max(0, count - 1);
+        if (key) {
+          state.reactions[key] = (state.reactions[key] || []).filter(e => e !== emoji);
+        }
+      } else {
+        btn.classList.add('reacted');
+        count += 1;
+        if (key) {
+          if (!state.reactions[key]) state.reactions[key] = [];
+          if (!state.reactions[key].includes(emoji)) state.reactions[key].push(emoji);
+        }
+        // Little pop animation
+        btn.style.transform = 'scale(1.2)';
+        setTimeout(() => { btn.style.transform = ''; }, 200);
+      }
+
+      countEl.textContent = count;
+      localStorage.setItem('katha-reactions', JSON.stringify(state.reactions));
+    });
+  });
+
+  // Handle "+" add reaction button
+  document.querySelectorAll('.add-reaction').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+
+      if (activeAddBtn === btn && emojiPicker.classList.contains('open')) {
+        closeEmojiPicker();
+        return;
+      }
+
+      activeAddBtn = btn;
+      const rect = btn.getBoundingClientRect();
+
+      // Position the picker above the button
+      emojiPicker.style.left = `${Math.min(rect.left, window.innerWidth - 210)}px`;
+      emojiPicker.style.top = `${rect.top - 52}px`;
+      emojiPicker.classList.add('open');
+    });
+  });
+
+  // Handle picking an emoji from the picker
+  document.querySelectorAll('.emoji-pick').forEach(pick => {
+    pick.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (!activeAddBtn) return;
+
+      const emoji = pick.dataset.emoji;
+      const card = activeAddBtn.closest('.story-card');
+      const reactionsContainer = activeAddBtn.closest('.emoji-reactions');
+      const key = getStoryKey(card);
+
+      // Check if this emoji already exists on this card
+      const existing = reactionsContainer.querySelector(`.reaction-btn[data-emoji="${emoji}"]:not(.add-reaction)`);
+      if (existing) {
+        // Toggle it on
+        if (!existing.classList.contains('reacted')) {
+          existing.classList.add('reacted');
+          const countEl = existing.querySelector('.reaction-count');
+          countEl.textContent = parseInt(countEl.textContent) + 1;
+          if (key) {
+            if (!state.reactions[key]) state.reactions[key] = [];
+            if (!state.reactions[key].includes(emoji)) state.reactions[key].push(emoji);
+          }
+          existing.style.transform = 'scale(1.2)';
+          setTimeout(() => { existing.style.transform = ''; }, 200);
+        }
+      } else {
+        // Create new reaction button
+        const newBtn = document.createElement('button');
+        newBtn.className = 'reaction-btn reacted';
+        newBtn.dataset.emoji = emoji;
+        newBtn.setAttribute('aria-label', `React ${emoji}`);
+        newBtn.innerHTML = `<span class="reaction-emoji">${emoji}</span><span class="reaction-count">1</span>`;
+
+        // Insert before the + button
+        reactionsContainer.insertBefore(newBtn, activeAddBtn);
+
+        // Add click handler to new button
+        newBtn.addEventListener('click', (ev) => {
+          ev.stopPropagation();
+          const countEl = newBtn.querySelector('.reaction-count');
+          let count = parseInt(countEl.textContent) || 0;
+
+          if (newBtn.classList.contains('reacted')) {
+            newBtn.classList.remove('reacted');
+            count = Math.max(0, count - 1);
+            if (key) {
+              state.reactions[key] = (state.reactions[key] || []).filter(e => e !== emoji);
+            }
+          } else {
+            newBtn.classList.add('reacted');
+            count += 1;
+            if (key) {
+              if (!state.reactions[key]) state.reactions[key] = [];
+              if (!state.reactions[key].includes(emoji)) state.reactions[key].push(emoji);
+            }
+            newBtn.style.transform = 'scale(1.2)';
+            setTimeout(() => { newBtn.style.transform = ''; }, 200);
+          }
+          countEl.textContent = count;
+          localStorage.setItem('katha-reactions', JSON.stringify(state.reactions));
+        });
+
+        if (key) {
+          if (!state.reactions[key]) state.reactions[key] = [];
+          if (!state.reactions[key].includes(emoji)) state.reactions[key].push(emoji);
+        }
+
+        newBtn.style.transform = 'scale(1.2)';
+        setTimeout(() => { newBtn.style.transform = ''; }, 200);
+      }
+
+      localStorage.setItem('katha-reactions', JSON.stringify(state.reactions));
+      closeEmojiPicker();
+      showToast(`Reacted with ${emoji}`);
+    });
+  });
+
+  function closeEmojiPicker() {
+    emojiPicker.classList.remove('open');
+    activeAddBtn = null;
+  }
+
+  // Close emoji picker when tapping elsewhere
+  document.addEventListener('click', () => {
+    closeEmojiPicker();
+  });
+
   // ---- Story card tap ----
   document.querySelectorAll('.story-card').forEach(card => {
     card.addEventListener('click', () => {
@@ -179,7 +343,7 @@
     }, 2000);
   }
 
-  // ---- Haptic-like feedback (visual) on card press ----
+  // ---- Passive touch listeners for smooth scrolling ----
   document.querySelectorAll('.story-card, .topic-card').forEach(el => {
     el.addEventListener('touchstart', () => {}, { passive: true });
   });
