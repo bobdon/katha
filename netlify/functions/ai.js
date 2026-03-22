@@ -1,0 +1,95 @@
+// Netlify Function: AI endpoint using Google Gemini
+// Environment variable required: GEMINI_API_KEY
+
+export default async (req) => {
+  // Only allow POST
+  if (req.method !== 'POST') {
+    return new Response(JSON.stringify({ error: 'Method not allowed' }), {
+      status: 405,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
+
+  const GEMINI_API_KEY = Netlify.env.get('GEMINI_API_KEY');
+  if (!GEMINI_API_KEY) {
+    return new Response(JSON.stringify({ error: 'Gemini API key not configured' }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
+
+  try {
+    const body = await req.json();
+    const { action, text, language } = body;
+
+    let prompt = '';
+
+    switch (action) {
+      case 'write':
+        prompt = `You are a creative fiction writer specializing in thriller and horror stories set in India. Write in ${language === 'bn' ? 'Bengali (\u09AC\u09BE\u0982\u09B2\u09BE)' : 'English'}. Based on the following prompt or outline, write a compelling story passage:\n\n${text}\n\nWrite 2-4 paragraphs. Be vivid and atmospheric.`;
+        break;
+
+      case 'edit':
+        prompt = `You are an expert fiction editor. The following text is from a thriller/horror story. Improve it \u2014 fix grammar, enhance prose, tighten pacing, and make it more gripping. Keep the same language (${language === 'bn' ? 'Bengali' : 'English'}). Return only the improved text, no explanations:\n\n${text}`;
+        break;
+
+      case 'translate':
+        const targetLang = language === 'bn' ? 'English' : 'Bengali (\u09AC\u09BE\u0982\u09B2\u09BE)';
+        prompt = `Translate the following thriller/horror story text to ${targetLang}. Preserve the tone, atmosphere, and literary quality. Return only the translation:\n\n${text}`;
+        break;
+
+      case 'suggest':
+        prompt = `You are a creative writing assistant for thriller and horror fiction set in India. Based on the following story text, suggest 3 brief ideas for what could happen next. Be creative and suspenseful. Respond in ${language === 'bn' ? 'Bengali (\u09AC\u09BE\u0982\u09B2\u09BE)' : 'English'}. Format as a numbered list:\n\n${text}`;
+        break;
+
+      case 'title':
+        prompt = `Based on the following thriller/horror story text, suggest 5 compelling titles. Respond in ${language === 'bn' ? 'Bengali (\u09AC\u09BE\u0982\u09B2\u09BE)' : 'English'}. Format as a numbered list:\n\n${text}`;
+        break;
+
+      default:
+        return new Response(JSON.stringify({ error: 'Invalid action' }), {
+          status: 400,
+          headers: { 'Content-Type': 'application/json' },
+        });
+    }
+
+    const geminiUrl = `https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash:generateContent?key=${GEMINI_API_KEY}`;
+
+    const geminiResponse = await fetch(geminiUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        contents: [{ parts: [{ text: prompt }] }],
+        generationConfig: {
+          temperature: 0.8,
+          maxOutputTokens: 2048,
+        },
+      }),
+    });
+
+    if (!geminiResponse.ok) {
+      const errText = await geminiResponse.text();
+      return new Response(JSON.stringify({ error: 'Gemini API error', details: errText }), {
+        status: 502,
+        headers: { 'Content-Type': 'application/json' },
+      });
+    }
+
+    const data = await geminiResponse.json();
+    const result = data?.candidates?.[0]?.content?.parts?.[0]?.text || '';
+
+    return new Response(JSON.stringify({ result }), {
+      status: 200,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  } catch (err) {
+    return new Response(JSON.stringify({ error: 'Server error', message: err.message }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
+};
+
+export const config = {
+  path: '/api/ai',
+};
