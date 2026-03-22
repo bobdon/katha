@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Katha — Editor</title>
+  <title>Katha â Editor</title>
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="editor.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -16,7 +16,7 @@
   <!-- Login Screen -->
   <div class="login-screen" id="loginScreen">
     <div class="login-card">
-      <h1 class="login-logo">কথা <span>Katha</span></h1>
+      <h1 class="login-logo">à¦à¦¥à¦¾ <span>Katha</span></h1>
       <p class="login-subtitle">Editor Access</p>
       <div class="login-divider"></div>
       <p class="login-instruction">Sign in with your authorized Google account</p>
@@ -28,111 +28,79 @@
   <!-- Editor (hidden until authenticated) -->
   <div class="editor-app" id="editorApp" style="display:none;">
 
-    <!-- Editor Header -->
+    <!-- Simple Header -->
     <header class="editor-header">
-      <div class="editor-header-left">
-        <h1 class="editor-logo">কথা <span>Editor</span></h1>
-      </div>
+      <h1 class="editor-logo">à¦à¦¥à¦¾ <span>Editor</span></h1>
       <div class="editor-header-right">
         <div class="lang-switch">
           <button class="lang-btn active" data-lang="en">EN</button>
-          <button class="lang-btn" data-lang="bn">বাং</button>
+          <button class="lang-btn" data-lang="bn">à¦¬à¦¾à¦</button>
         </div>
-        <div class="user-avatar" id="userAvatar">
-          <img id="userPhoto" alt="User" width="32" height="32">
-        </div>
-        <button class="editor-logout" id="logoutBtn" title="Sign out">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
-        </button>
+        <button class="editor-logout" id="logoutBtn" data-en="Sign Out" data-bn="à¦¸à¦¾à¦à¦¨ à¦à¦à¦">Sign Out</button>
       </div>
     </header>
 
-    <!-- Editor Toolbar -->
-    <div class="editor-toolbar">
-      <div class="toolbar-group">
-        <button class="toolbar-btn" id="btnNewStory" title="New story">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-          <span class="toolbar-label" data-en="New" data-bn="নতুন">New</span>
-        </button>
-        <button class="toolbar-btn" id="btnMyStories" title="My stories">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-          <span class="toolbar-label" data-en="Stories" data-bn="গল্প">Stories</span>
-        </button>
-      </div>
-      <div class="toolbar-group">
-        <button class="toolbar-btn ai-btn" id="btnAiWrite" title="AI Write">
-          <span class="ai-icon">✨</span>
-          <span class="toolbar-label" data-en="AI Write" data-bn="AI লেখা">AI Write</span>
-        </button>
-        <button class="toolbar-btn ai-btn" id="btnAiEdit" title="AI Edit">
-          <span class="ai-icon">🪄</span>
-          <span class="toolbar-label" data-en="AI Edit" data-bn="AI সম্পাদনা">AI Edit</span>
-        </button>
-        <button class="toolbar-btn ai-btn" id="btnAiTranslate" title="Translate">
-          <span class="ai-icon">🌐</span>
-          <span class="toolbar-label" data-en="Translate" data-bn="অনুবাদ">Translate</span>
-        </button>
-        <button class="toolbar-btn ai-btn" id="btnAiSuggest" title="Suggest next">
-          <span class="ai-icon">💡</span>
-          <span class="toolbar-label" data-en="Suggest" data-bn="পরামর্শ">Suggest</span>
-        </button>
-      </div>
+    <!-- Story Title -->
+    <div class="title-section">
+      <input type="text" class="story-title-input" id="storyTitle"
+        data-placeholder-en="Enter story title..."
+        data-placeholder-bn="à¦à¦²à§à¦ªà§à¦° à¦¶à¦¿à¦°à§à¦¨à¦¾à¦® à¦²à¦¿à¦à§à¦¨..."
+        placeholder="Enter story title...">
+      <select class="story-topic-select" id="storyTopic">
+        <option value="ghosts" data-en="Ghosts" data-bn="à¦­à§à¦¤">Ghosts</option>
+        <option value="crime" data-en="Crime Thriller" data-bn="à¦à¦ªà¦°à¦¾à¦§ à¦¥à§à¦°à¦¿à¦²à¦¾à¦°">Crime Thriller</option>
+        <option value="haunted" data-en="Haunted Places" data-bn="à¦­à§à¦¤à§à¦¡à¦¼à§ à¦à¦¾à¦¯à¦¼à¦à¦¾">Haunted Places</option>
+        <option value="survival" data-en="Survival" data-bn="à¦¬à§à¦à¦à§ à¦¥à¦¾à¦à¦¾">Survival</option>
+        <option value="mystery" data-en="Mystery" data-bn="à¦°à¦¹à¦¸à§à¦¯">Mystery</option>
+        <option value="paranormal" data-en="Paranormal" data-bn="à¦à¦²à§à¦à¦¿à¦">Paranormal</option>
+        <option value="folklore" data-en="Dark Folklore" data-bn="à¦à¦¨à§à¦§à¦à¦¾à¦° à¦²à§à¦à¦à¦¥à¦¾">Dark Folklore</option>
+        <option value="psychological" data-en="Psychological" data-bn="à¦®à¦¨à¦¸à§à¦¤à¦¾à¦¤à§à¦¤à§à¦¬à¦¿à¦">Psychological</option>
+      </select>
     </div>
 
-    <!-- Story Metadata -->
-    <div class="story-meta-editor">
-      <input type="text" class="story-title-input" id="storyTitle" data-placeholder-en="Story title..." data-placeholder-bn="গল্পের শিরোনাম..." placeholder="Story title...">
-      <div class="meta-row">
-        <input type="text" class="story-author-input" id="storyAuthor" data-placeholder-en="Author name" data-placeholder-bn="লেখকের নাম" placeholder="Author name">
-        <select class="story-topic-select" id="storyTopic">
-          <option value="ghosts" data-en="Ghosts" data-bn="ভূত">Ghosts</option>
-          <option value="crime" data-en="Crime Thriller" data-bn="অপরাধ থ্রিলার">Crime Thriller</option>
-          <option value="haunted" data-en="Haunted Places" data-bn="ভুতুড়ে জায়গা">Haunted Places</option>
-          <option value="survival" data-en="Survival" data-bn="বেঁচে থাকা">Survival</option>
-          <option value="mystery" data-en="Mystery" data-bn="রহস্য">Mystery</option>
-          <option value="paranormal" data-en="Paranormal" data-bn="অলৌকিক">Paranormal</option>
-          <option value="folklore" data-en="Dark Folklore" data-bn="অন্ধকার লোককথা">Dark Folklore</option>
-          <option value="psychological" data-en="Psychological" data-bn="মনস্তাত্ত্বিক">Psychological</option>
-        </select>
-      </div>
-      <button class="title-suggest-btn" id="btnSuggestTitle" data-en="✨ Suggest titles" data-bn="✨ শিরোনাম পরামর্শ">✨ Suggest titles</button>
-    </div>
-
-    <!-- Main Editor Area -->
+    <!-- Main Writing Area -->
     <div class="editor-body">
-      <textarea class="editor-textarea" id="editorText" data-placeholder-en="Start writing your story here... or use AI Write to generate a draft from a prompt." data-placeholder-bn="এখানে আপনার গল্প লিখুন... অথবা একটি খসড়া তৈরি করতে AI লেখা ব্যবহার করুন।" placeholder="Start writing your story here... or use AI Write to generate a draft from a prompt."></textarea>
+      <textarea class="editor-textarea" id="editorText"
+        data-placeholder-en="Start writing your story here..."
+        data-placeholder-bn="à¦à¦à¦¾à¦¨à§ à¦à¦ªà¦¨à¦¾à¦° à¦à¦²à§à¦ª à¦²à¦¿à¦à§à¦¨..."
+        placeholder="Start writing your story here..."></textarea>
+    </div>
+
+    <!-- AI Tools â big, clear buttons -->
+    <div class="ai-tools">
+      <p class="ai-tools-label" data-en="AI Tools" data-bn="AI à¦¸à¦°à¦à§à¦à¦¾à¦®">AI Tools</p>
+      <div class="ai-tools-grid">
+        <button class="ai-tool-btn" id="btnAiWrite" data-en="â¨ Write for Me" data-bn="â¨ à¦à¦®à¦¾à¦° à¦à¦¨à§à¦¯ à¦²à¦¿à¦à§à¦¨">â¨ Write for Me</button>
+        <button class="ai-tool-btn" id="btnAiEdit" data-en="ðª Improve My Text" data-bn="ðª à¦à¦®à¦¾à¦° à¦²à§à¦à¦¾ à¦à¦¨à§à¦¨à¦¤ à¦à¦°à§à¦¨">ðª Improve My Text</button>
+        <button class="ai-tool-btn" id="btnAiTranslate" data-en="ð Translate" data-bn="ð à¦à¦¨à§à¦¬à¦¾à¦¦ à¦à¦°à§à¦¨">ð Translate</button>
+        <button class="ai-tool-btn" id="btnAiSuggest" data-en="ð¡ What Happens Next?" data-bn="ð¡ à¦ªà¦°à¦¬à¦°à§à¦¤à§à¦¤à§ à¦à§ à¦¹à¦¬à§?">ð¡ What Happens Next?</button>
+      </div>
+    </div>
+
+    <!-- Action Buttons â big and clear -->
+    <div class="action-buttons">
+      <button class="action-btn stories-btn" id="btnMyStories" data-en="ð My Stories" data-bn="ð à¦à¦®à¦¾à¦° à¦à¦²à§à¦ª">ð My Stories</button>
+      <button class="action-btn new-btn" id="btnNewStory" data-en="ð New Story" data-bn="ð à¦¨à¦¤à§à¦¨ à¦à¦²à§à¦ª">ð New Story</button>
+      <button class="action-btn save-btn" id="btnSaveDraft" data-en="ð¾ Save Draft" data-bn="ð¾ à¦à¦¸à¦¡à¦¼à¦¾ à¦¸à¦à¦°à¦à§à¦·à¦£">ð¾ Save Draft</button>
+      <button class="action-btn publish-btn" id="btnPublish" data-en="ð Publish" data-bn="ð à¦ªà§à¦°à¦à¦¾à¦¶ à¦à¦°à§à¦¨">ð Publish</button>
     </div>
 
     <!-- AI Output Panel (slides up) -->
     <div class="ai-panel" id="aiPanel">
       <div class="ai-panel-header">
         <span class="ai-panel-title" id="aiPanelTitle">AI Output</span>
-        <div class="ai-panel-actions">
-          <button class="ai-panel-btn" id="btnInsertAi" data-en="Insert" data-bn="যোগ করুন">Insert</button>
-          <button class="ai-panel-btn" id="btnReplaceAi" data-en="Replace" data-bn="প্রতিস্থাপন">Replace</button>
-          <button class="ai-panel-btn secondary" id="btnCloseAi" data-en="Close" data-bn="বন্ধ">Close</button>
-        </div>
+        <button class="ai-panel-close" id="btnCloseAi">â</button>
       </div>
       <div class="ai-panel-content" id="aiPanelContent">
         <div class="ai-loading" id="aiLoading">
           <div class="ai-spinner"></div>
-          <span data-en="Thinking..." data-bn="ভাবছে...">Thinking...</span>
+          <span data-en="Thinking..." data-bn="à¦­à¦¾à¦¬à¦à§...">Thinking...</span>
         </div>
         <div class="ai-result" id="aiResult"></div>
       </div>
-    </div>
-
-    <!-- Bottom Actions -->
-    <div class="editor-bottom">
-      <div class="word-count" id="wordCount" data-en-template="{count} words" data-bn-template="{count} শব্দ">0 words</div>
-      <div class="editor-bottom-actions">
-        <button class="save-draft-btn" id="btnSaveDraft">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
-          <span data-en="Save Draft" data-bn="খসড়া সংরক্ষণ">Save Draft</span>
-        </button>
-        <button class="publish-btn" id="btnPublish">
-          <span data-en="Publish" data-bn="প্রকাশ করুন">Publish</span>
-        </button>
+      <div class="ai-panel-actions">
+        <button class="ai-action-btn insert-btn" id="btnInsertAi" data-en="â Add to My Story" data-bn="â à¦à¦®à¦¾à¦° à¦à¦²à§à¦ªà§ à¦¯à§à¦ à¦à¦°à§à¦¨">â Add to My Story</button>
+        <button class="ai-action-btn replace-btn" id="btnReplaceAi" data-en="ð Replace My Text" data-bn="ð à¦à¦®à¦¾à¦° à¦²à§à¦à¦¾ à¦¬à¦¦à¦²à¦¾à¦¨">ð Replace My Text</button>
       </div>
     </div>
 
@@ -140,21 +108,24 @@
     <div class="stories-modal" id="storiesModal">
       <div class="stories-modal-backdrop" id="storiesModalBackdrop"></div>
       <div class="stories-modal-content">
-        <h3 class="stories-modal-title" data-en="My Stories" data-bn="আমার গল্প">My Stories</h3>
+        <h3 class="stories-modal-title" data-en="My Stories" data-bn="à¦à¦®à¦¾à¦° à¦à¦²à§à¦ª">My Stories</h3>
         <div class="stories-list" id="storiesList"></div>
-        <button class="stories-modal-close" id="storiesModalClose" data-en="Close" data-bn="বন্ধ">Close</button>
+        <button class="stories-modal-close" id="storiesModalClose" data-en="Close" data-bn="à¦¬à¦¨à§à¦§ à¦à¦°à§à¦¨">Close</button>
       </div>
     </div>
 
-    <!-- AI Prompt Modal -->
+    <!-- AI Prompt Modal (for "Write for Me") -->
     <div class="ai-prompt-modal" id="aiPromptModal">
       <div class="ai-prompt-backdrop" id="aiPromptBackdrop"></div>
       <div class="ai-prompt-content">
-        <h3 class="ai-prompt-title" id="aiPromptTitle">AI Write</h3>
-        <textarea class="ai-prompt-input" id="aiPromptInput" rows="3" data-placeholder-en="Describe what you want to write about..." data-placeholder-bn="আপনি কী নিয়ে লিখতে চান তা বর্ণনা করুন..."></textarea>
+        <h3 class="ai-prompt-title" id="aiPromptTitle" data-en="What should I write about?" data-bn="à¦à¦®à¦¿ à¦à§ à¦¨à¦¿à¦¯à¦¼à§ à¦²à¦¿à¦à¦¬?">What should I write about?</h3>
+        <textarea class="ai-prompt-input" id="aiPromptInput" rows="4"
+          data-placeholder-en="Example: A ghost story set in an old house in Kolkata during monsoon..."
+          data-placeholder-bn="à¦à¦¦à¦¾à¦¹à¦°à¦£: à¦à¦²à¦à¦¾à¦¤à¦¾à¦¯à¦¼ à¦¬à¦°à§à¦·à¦¾à¦à¦¾à¦²à§ à¦à¦à¦à¦¿ à¦ªà§à¦°à¦¨à§ à¦¬à¦¾à¦¡à¦¼à¦¿à¦¤à§ à¦­à§à¦¤à§à¦° à¦à¦²à§à¦ª..."
+          placeholder="Example: A ghost story set in an old house in Kolkata during monsoon..."></textarea>
         <div class="ai-prompt-actions">
-          <button class="ai-prompt-btn secondary" id="aiPromptCancel" data-en="Cancel" data-bn="বাতিল">Cancel</button>
-          <button class="ai-prompt-btn primary" id="aiPromptSubmit" data-en="Generate" data-bn="তৈরি করুন">Generate</button>
+          <button class="ai-prompt-btn cancel" id="aiPromptCancel" data-en="Cancel" data-bn="à¦¬à¦¾à¦¤à¦¿à¦²">Cancel</button>
+          <button class="ai-prompt-btn go" id="aiPromptSubmit" data-en="â¨ Write It!" data-bn="â¨ à¦²à¦¿à¦à§à¦¨!">â¨ Write It!</button>
         </div>
       </div>
     </div>
