@@ -14,7 +14,7 @@
     // Replace with your Google OAuth Client ID
     GOOGLE_CLIENT_ID: '573358982341-fdrmkps93inrogasaq6k28u9vipf3co7.apps.googleusercontent.com',
     // Replace with your dad's Gmail address
-    ALLOWED_EMAIL: 'DADS_EMAIL@gmail.com',
+    ALLOWED_EMAIL: 'anand.moulik@gmail.com',
   };
 
   // ---- State ----
