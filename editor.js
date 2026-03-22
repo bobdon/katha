@@ -1,5 +1,5 @@
 /* ========================================
-   KATHA EDITOR â Simplified Logic
+   KATHA EDITOR — Simplified Logic
    Google Auth, AI integration, bilingual UI,
    story management (no author field)
    ======================================== */
@@ -8,7 +8,7 @@
   'use strict';
 
   // ========================================
-  // CONFIG â Update these values
+  // CONFIG — Update these values
   // ========================================
   const CONFIG = {
     GOOGLE_CLIENT_ID: '573358982341-fdrmkps93inrogasaq6k28u9vipf3co7.apps.googleusercontent.com',
@@ -200,7 +200,7 @@
     setTimeout(() => { aiResult.style.color = ''; }, 3000);
   }
 
-  // AI Write â opens prompt modal
+  // AI Write — opens prompt modal
   document.getElementById('btnAiWrite').addEventListener('click', () => {
     currentAiAction = 'write';
     aiPromptTitle.textContent = aiPromptTitle.getAttribute(`data-${state.language}`) || aiPromptTitle.getAttribute('data-en');
@@ -214,11 +214,11 @@
   document.getElementById('btnAiEdit').addEventListener('click', async () => {
     const text = editorText.value.trim();
     if (!text) {
-      showToast(state.language === 'bn' ? 'à¦ªà§à¦°à¦¥à¦®à§ à¦à¦¿à¦à§ à¦²à¦¿à¦à§à¦¨' : 'Write something first');
+      showToast(state.language === 'bn' ? 'প্রথমে কিছু লিখুন' : 'Write something first');
       return;
     }
     currentAiAction = 'edit';
-    showAiPanel(state.language === 'bn' ? 'ðª à¦à¦®à¦¾à¦° à¦²à§à¦à¦¾ à¦à¦¨à§à¦¨à¦¤ à¦à¦°à¦¾ à¦¹à¦à§à¦à§' : 'ðª Improving Your Text');
+    showAiPanel(state.language === 'bn' ? '🪄 আমার লেখা উন্নত করা হচ্ছে' : '🪄 Improving Your Text');
     try {
       const result = await callAI('edit', text);
       showAiResult(result);
@@ -231,12 +231,12 @@
   document.getElementById('btnAiTranslate').addEventListener('click', async () => {
     const text = editorText.value.trim();
     if (!text) {
-      showToast(state.language === 'bn' ? 'à¦ªà§à¦°à¦¥à¦®à§ à¦à¦¿à¦à§ à¦²à¦¿à¦à§à¦¨' : 'Write something first');
+      showToast(state.language === 'bn' ? 'প্রথমে কিছু লিখুন' : 'Write something first');
       return;
     }
     currentAiAction = 'translate';
-    const targetLang = state.language === 'bn' ? 'English' : 'à¦¬à¦¾à¦à¦²à¦¾';
-    showAiPanel(`ð â ${targetLang}`);
+    const targetLang = state.language === 'bn' ? 'English' : 'বাংলা';
+    showAiPanel(`🌐 → ${targetLang}`);
     try {
       const result = await callAI('translate', text);
       showAiResult(result);
@@ -249,11 +249,11 @@
   document.getElementById('btnAiSuggest').addEventListener('click', async () => {
     const text = editorText.value.trim();
     if (!text) {
-      showToast(state.language === 'bn' ? 'à¦ªà§à¦°à¦¥à¦®à§ à¦à¦¿à¦à§ à¦²à¦¿à¦à§à¦¨' : 'Write something first');
+      showToast(state.language === 'bn' ? 'প্রথমে কিছু লিখুন' : 'Write something first');
       return;
     }
     currentAiAction = 'suggest';
-    showAiPanel(state.language === 'bn' ? 'ð¡ à¦ªà¦°à¦¬à¦°à§à¦¤à§ à¦à§ à¦¹à¦¤à§ à¦ªà¦¾à¦°à§' : 'ð¡ What Could Happen Next');
+    showAiPanel(state.language === 'bn' ? '💡 পরবর্তী কী হতে পারে' : '💡 What Could Happen Next');
     try {
       const result = await callAI('suggest', text);
       showAiResult(result);
@@ -262,13 +262,13 @@
     }
   });
 
-  // AI Prompt Modal â submit
+  // AI Prompt Modal — submit
   document.getElementById('aiPromptSubmit').addEventListener('click', async () => {
     const promptText = aiPromptInput.value.trim();
     if (!promptText) return;
 
     aiPromptModal.classList.remove('open');
-    showAiPanel(state.language === 'bn' ? 'â¨ à¦²à§à¦à¦¾ à¦¤à§à¦°à¦¿ à¦¹à¦à§à¦à§' : 'â¨ Writing Your Story');
+    showAiPanel(state.language === 'bn' ? '✨ লেখা তৈরি হচ্ছে' : '✨ Writing Your Story');
 
     try {
       const result = await callAI('write', promptText);
@@ -291,7 +291,7 @@
     if (text && !text.startsWith('Error:')) {
       editorText.value += (editorText.value ? '\n\n' : '') + text;
       aiPanel.classList.remove('open');
-      showToast(state.language === 'bn' ? 'à¦¯à§à¦ à¦à¦°à¦¾ à¦¹à¦¯à¦¼à§à¦à§!' : 'Added to your story!');
+      showToast(state.language === 'bn' ? 'যোগ করা হয়েছে!' : 'Added to your story!');
     }
   });
 
@@ -300,7 +300,7 @@
     if (text && !text.startsWith('Error:')) {
       editorText.value = text;
       aiPanel.classList.remove('open');
-      showToast(state.language === 'bn' ? 'à¦²à§à¦à¦¾ à¦¬à¦¦à¦²à¦¾à¦¨à§ à¦¹à¦¯à¦¼à§à¦à§!' : 'Text replaced!');
+      showToast(state.language === 'bn' ? 'লেখা বদলানো হয়েছে!' : 'Text replaced!');
     }
   });
 
@@ -325,16 +325,16 @@
     storyTitle.value = '';
     storyTopic.selectedIndex = 0;
     editorText.value = '';
-    showToast(state.language === 'bn' ? 'à¦¨à¦¤à§à¦¨ à¦à¦²à§à¦ª à¦¶à§à¦°à§ à¦à¦°à§à¦¨!' : 'Start a new story!');
+    showToast(state.language === 'bn' ? 'নতুন গল্প শুরু করুন!' : 'Start a new story!');
   });
 
   // Save Draft
   document.getElementById('btnSaveDraft').addEventListener('click', () => {
-    const title = storyTitle.value.trim() || (state.language === 'bn' ? 'à¦¶à¦¿à¦°à§à¦¨à¦¾à¦®à¦¹à§à¦¨' : 'Untitled');
+    const title = storyTitle.value.trim() || (state.language === 'bn' ? 'শিরোনামহীন' : 'Untitled');
     const text = editorText.value.trim();
 
     if (!text) {
-      showToast(state.language === 'bn' ? 'à¦²à§à¦à¦¾ à¦à¦¾à¦²à¦¿!' : 'Nothing to save!');
+      showToast(state.language === 'bn' ? 'লেখা খালি!' : 'Nothing to save!');
       return;
     }
 
@@ -363,7 +363,7 @@
     }
 
     saveStories();
-    showToast(state.language === 'bn' ? 'à¦à¦¸à¦¡à¦¼à¦¾ à¦¸à¦à¦°à¦à§à¦·à¦¿à¦¤!' : 'Draft saved!');
+    showToast(state.language === 'bn' ? 'খসড়া সংরক্ষিত!' : 'Draft saved!');
   });
 
   // Publish
@@ -372,7 +372,7 @@
     const text = editorText.value.trim();
 
     if (!title || !text) {
-      showToast(state.language === 'bn' ? 'à¦¶à¦¿à¦°à§à¦¨à¦¾à¦® à¦à¦¬à¦ à¦²à§à¦à¦¾ à¦¦à¦°à¦à¦¾à¦°!' : 'Need a title and some text!');
+      showToast(state.language === 'bn' ? 'শিরোনাম এবং লেখা দরকার!' : 'Need a title and some text!');
       return;
     }
 
@@ -402,7 +402,7 @@
     }
 
     saveStories();
-    showToast(state.language === 'bn' ? 'à¦ªà§à¦°à¦à¦¾à¦¶à¦¿à¦¤!' : 'Published!');
+    showToast(state.language === 'bn' ? 'প্রকাশিত!' : 'Published!');
   });
 
   // My Stories
@@ -420,7 +420,7 @@
 
   function renderStoriesList() {
     if (state.stories.length === 0) {
-      storiesList.innerHTML = `<div class="stories-empty">${state.language === 'bn' ? 'à¦à¦à¦¨à§ à¦à§à¦¨à§ à¦à¦²à§à¦ª à¦¨à§à¦' : 'No stories yet'}</div>`;
+      storiesList.innerHTML = `<div class="stories-empty">${state.language === 'bn' ? 'এখনো কোনো গল্প নেই' : 'No stories yet'}</div>`;
       return;
     }
 
@@ -428,10 +428,10 @@
       <div class="story-list-item" data-id="${story.id}">
         <div class="story-list-info">
           <div class="story-list-title">${escapeHtml(story.title)}</div>
-          <div class="story-list-meta">${formatDate(story.updatedAt)} Â· ${story.language === 'bn' ? 'à¦¬à¦¾à¦à¦²à¦¾' : 'English'}</div>
+          <div class="story-list-meta">${formatDate(story.updatedAt)} · ${story.language === 'bn' ? 'বাংলা' : 'English'}</div>
         </div>
-        <span class="story-list-status ${story.status}">${story.status === 'published' ? (state.language === 'bn' ? 'à¦ªà§à¦°à¦à¦¾à¦¶à¦¿à¦¤' : 'Published') : (state.language === 'bn' ? 'à¦à¦¸à¦¡à¦¼à¦¾' : 'Draft')}</span>
-        <button class="story-list-delete" data-id="${story.id}" title="Delete">ð</button>
+        <span class="story-list-status ${story.status}">${story.status === 'published' ? (state.language === 'bn' ? 'প্রকাশিত' : 'Published') : (state.language === 'bn' ? 'খসড়া' : 'Draft')}</span>
+        <button class="story-list-delete" data-id="${story.id}" title="Delete">🗑</button>
       </div>
     `).join('');
 
@@ -448,7 +448,7 @@
       btn.addEventListener('click', (e) => {
         e.stopPropagation();
         const id = btn.dataset.id;
-        if (!confirm(state.language === 'bn' ? 'à¦à¦ à¦à¦²à§à¦ªà¦à¦¿ à¦®à§à¦à§ à¦«à§à¦²à¦¬à§à¦¨?' : 'Delete this story?')) return;
+        if (!confirm(state.language === 'bn' ? 'এই গল্পটি মুছে ফেলবেন?' : 'Delete this story?')) return;
         state.stories = state.stories.filter(s => s.id !== id);
         saveStories();
         if (state.currentStoryId === id) {
@@ -457,7 +457,7 @@
           editorText.value = '';
         }
         renderStoriesList();
-        showToast(state.language === 'bn' ? 'à¦®à§à¦à§ à¦«à§à¦²à¦¾ à¦¹à¦¯à¦¼à§à¦à§' : 'Deleted');
+        showToast(state.language === 'bn' ? 'মুছে ফেলা হয়েছে' : 'Deleted');
       });
     });
   }
@@ -475,7 +475,7 @@
       setLanguage(story.language);
     }
 
-    showToast(state.language === 'bn' ? 'à¦à¦²à§à¦ª à¦²à§à¦¡ à¦¹à¦¯à¦¼à§à¦à§!' : 'Story loaded!');
+    showToast(state.language === 'bn' ? 'গল্প লোড হয়েছে!' : 'Story loaded!');
   }
 
   // ========================================
@@ -492,7 +492,7 @@
     const now = new Date();
     const diff = now - d;
 
-    if (diff < 60000) return state.language === 'bn' ? 'à¦à¦à¦®à¦¾à¦¤à§à¦°' : 'Just now';
+    if (diff < 60000) return state.language === 'bn' ? 'এইমাত্র' : 'Just now';
     if (diff < 3600000) return `${Math.floor(diff / 60000)}m ago`;
     if (diff < 86400000) return `${Math.floor(diff / 3600000)}h ago`;
     return d.toLocaleDateString(state.language === 'bn' ? 'bn-IN' : 'en-US', { month: 'short', day: 'numeric' });
