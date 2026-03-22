@@ -1,0 +1,789 @@
+/* ========================================
+   KATHA EDITOR — Styles
+   ======================================== */
+
+/* ---- Login Screen ---- */
+.login-screen {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg);
+  z-index: 2000;
+  padding: 20px;
+}
+
+.login-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 40px 32px;
+  text-align: center;
+  max-width: 360px;
+  width: 100%;
+  box-shadow: var(--shadow-lg);
+}
+
+.login-logo {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 2rem;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+
+.login-logo span {
+  font-size: 1.2rem;
+  font-weight: 400;
+  color: var(--text-secondary);
+  margin-left: 6px;
+}
+
+.login-subtitle {
+  font-size: 0.85rem;
+  color: var(--accent);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 20px;
+}
+
+.login-divider {
+  height: 1px;
+  background: var(--border);
+  margin: 16px 0;
+}
+
+.login-instruction {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  margin-bottom: 24px;
+}
+
+#googleSignInBtn {
+  display: flex;
+  justify-content: center;
+}
+
+.login-error {
+  color: #E8365D;
+  font-size: 0.82rem;
+  margin-top: 16px;
+  min-height: 20px;
+}
+
+/* ---- Editor Header ---- */
+.editor-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 16px;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border-light);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.editor-logo {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.3rem;
+  color: var(--text);
+}
+
+.editor-logo span {
+  font-size: 0.85rem;
+  font-weight: 400;
+  color: var(--accent);
+  margin-left: 4px;
+}
+
+.editor-header-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Language Switch */
+.lang-switch {
+  display: flex;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.lang-btn {
+  padding: 6px 12px;
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: 'Inter', 'Noto Sans Bengali', sans-serif;
+}
+
+.lang-btn.active {
+  background: var(--accent);
+  color: var(--badge-text);
+}
+
+/* User Avatar */
+.user-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid var(--border);
+}
+
+.user-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.editor-logout {
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.editor-logout:active {
+  background: var(--accent-light);
+  color: var(--accent);
+}
+
+/* ---- Editor Toolbar ---- */
+.editor-toolbar {
+  display: flex;
+  gap: 8px;
+  padding: 10px 16px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  border-bottom: 1px solid var(--border-light);
+  background: var(--bg);
+}
+
+.editor-toolbar::-webkit-scrollbar { display: none; }
+
+.toolbar-group {
+  display: flex;
+  gap: 4px;
+}
+
+.toolbar-btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 7px 12px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--bg-card);
+  color: var(--text-secondary);
+  font-size: 0.78rem;
+  font-weight: 500;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+  font-family: 'Inter', 'Noto Sans Bengali', sans-serif;
+}
+
+.toolbar-btn:active {
+  transform: scale(0.95);
+  background: var(--accent-light);
+}
+
+.toolbar-btn.ai-btn {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.toolbar-btn.ai-btn:active {
+  background: var(--accent);
+  color: var(--badge-text);
+}
+
+.ai-icon {
+  font-size: 0.9rem;
+}
+
+.toolbar-label {
+  font-family: 'Inter', 'Noto Sans Bengali', sans-serif;
+}
+
+/* ---- Story Metadata ---- */
+.story-meta-editor {
+  padding: 16px;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.story-title-input {
+  width: 100%;
+  border: none;
+  background: transparent;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--text);
+  padding: 0;
+  margin-bottom: 10px;
+  outline: none;
+}
+
+.story-title-input::placeholder {
+  color: var(--text-muted);
+  opacity: 0.6;
+}
+
+.meta-row {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.story-author-input {
+  flex: 1;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 8px 12px;
+  background: var(--bg-card);
+  color: var(--text);
+  font-size: 0.85rem;
+  font-family: 'Inter', 'Noto Sans Bengali', sans-serif;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.story-author-input:focus {
+  border-color: var(--accent);
+}
+
+.story-author-input::placeholder {
+  color: var(--text-muted);
+}
+
+.story-topic-select {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 8px 12px;
+  background: var(--bg-card);
+  color: var(--text);
+  font-size: 0.85rem;
+  font-family: 'Inter', 'Noto Sans Bengali', sans-serif;
+  outline: none;
+  cursor: pointer;
+  transition: border-color 0.2s ease;
+}
+
+.story-topic-select:focus {
+  border-color: var(--accent);
+}
+
+.title-suggest-btn {
+  border: none;
+  background: transparent;
+  color: var(--accent);
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 4px 0;
+  font-family: 'Inter', 'Noto Sans Bengali', sans-serif;
+  transition: opacity 0.2s;
+}
+
+.title-suggest-btn:active {
+  opacity: 0.7;
+}
+
+/* ---- Main Editor ---- */
+.editor-body {
+  flex: 1;
+  padding: 16px;
+  min-height: calc(100vh - 340px);
+}
+
+.editor-textarea {
+  width: 100%;
+  min-height: 300px;
+  height: calc(100vh - 380px);
+  border: none;
+  background: transparent;
+  color: var(--text);
+  font-family: 'Inter', 'Noto Sans Bengali', sans-serif;
+  font-size: 1rem;
+  line-height: 1.75;
+  resize: none;
+  outline: none;
+  padding: 0;
+}
+
+.editor-textarea::placeholder {
+  color: var(--text-muted);
+  opacity: 0.5;
+}
+
+/* Bengali text styling */
+[data-lang="bn"] .editor-textarea,
+[data-lang="bn"] .story-title-input {
+  font-family: 'Noto Sans Bengali', 'Inter', sans-serif;
+}
+
+/* ---- AI Panel ---- */
+.ai-panel {
+  position: fixed;
+  bottom: 60px;
+  left: 0;
+  right: 0;
+  max-width: 480px;
+  margin: 0 auto;
+  background: var(--bg-card);
+  border-top: 1px solid var(--border);
+  border-radius: 20px 20px 0 0;
+  box-shadow: var(--shadow-lg);
+  transform: translateY(100%);
+  transition: transform 0.35s cubic-bezier(0.32, 0.72, 0, 1);
+  z-index: 150;
+  max-height: 50vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.ai-panel.open {
+  transform: translateY(0);
+}
+
+.ai-panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.ai-panel-title {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--text);
+}
+
+.ai-panel-actions {
+  display: flex;
+  gap: 6px;
+}
+
+.ai-panel-btn {
+  padding: 6px 14px;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: var(--accent);
+  color: var(--badge-text);
+  font-family: 'Inter', 'Noto Sans Bengali', sans-serif;
+}
+
+.ai-panel-btn.secondary {
+  background: var(--bg);
+  color: var(--text-secondary);
+  border: 1px solid var(--border);
+}
+
+.ai-panel-btn:active {
+  transform: scale(0.95);
+}
+
+.ai-panel-content {
+  padding: 16px;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.ai-loading {
+  display: none;
+  align-items: center;
+  gap: 10px;
+  color: var(--text-muted);
+  font-size: 0.88rem;
+}
+
+.ai-loading.show {
+  display: flex;
+}
+
+.ai-spinner {
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--border);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.ai-result {
+  font-size: 0.92rem;
+  line-height: 1.65;
+  color: var(--text);
+  white-space: pre-wrap;
+  font-family: 'Inter', 'Noto Sans Bengali', sans-serif;
+}
+
+/* ---- Bottom Bar ---- */
+.editor-bottom {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  max-width: 480px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 16px calc(10px + env(safe-area-inset-bottom, 0px));
+  background: var(--bg-nav);
+  border-top: 1px solid var(--border-light);
+  z-index: 100;
+}
+
+.word-count {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.editor-bottom-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.save-draft-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--bg-card);
+  color: var(--text-secondary);
+  font-size: 0.82rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: 'Inter', 'Noto Sans Bengali', sans-serif;
+}
+
+.save-draft-btn:active {
+  transform: scale(0.95);
+}
+
+.publish-btn {
+  padding: 8px 20px;
+  border: none;
+  border-radius: 10px;
+  background: var(--accent);
+  color: var(--badge-text);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: 'Inter', 'Noto Sans Bengali', sans-serif;
+}
+
+.publish-btn:active {
+  transform: scale(0.95);
+  opacity: 0.9;
+}
+
+/* ---- Stories List Modal ---- */
+.stories-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: flex-end;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.stories-modal.open {
+  pointer-events: auto;
+  opacity: 1;
+}
+
+.stories-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+.stories-modal-content {
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+  background: var(--bg-modal);
+  border-radius: 20px 20px 0 0;
+  padding: 24px 16px 32px;
+  max-height: 70vh;
+  overflow-y: auto;
+  transform: translateY(100%);
+  transition: transform 0.35s cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+.stories-modal.open .stories-modal-content {
+  transform: translateY(0);
+}
+
+.stories-modal-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.15rem;
+  color: var(--text);
+  margin-bottom: 16px;
+}
+
+.stories-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.story-list-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 14px;
+  border: 1px solid var(--border-light);
+  border-radius: 12px;
+  background: var(--bg-card);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.story-list-item:active {
+  transform: scale(0.98);
+  background: var(--bg-card-hover);
+}
+
+.story-list-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.story-list-title {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.story-list-meta {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+.story-list-status {
+  font-size: 0.7rem;
+  padding: 3px 8px;
+  border-radius: 6px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  flex-shrink: 0;
+}
+
+.story-list-status.draft {
+  background: var(--accent-light);
+  color: var(--accent);
+}
+
+.story-list-status.published {
+  background: #D1FAE5;
+  color: #065F46;
+}
+
+.story-list-delete {
+  width: 28px;
+  height: 28px;
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  margin-left: 8px;
+  transition: all 0.2s ease;
+}
+
+.story-list-delete:active {
+  background: #FEE2E2;
+  color: #DC2626;
+}
+
+.stories-empty {
+  text-align: center;
+  padding: 32px 16px;
+  color: var(--text-muted);
+  font-size: 0.88rem;
+}
+
+.stories-modal-close {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  margin-top: 16px;
+  border: none;
+  border-radius: 12px;
+  background: var(--accent);
+  color: var(--badge-text);
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: 'Inter', 'Noto Sans Bengali', sans-serif;
+}
+
+/* ---- AI Prompt Modal ---- */
+.ai-prompt-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  padding: 20px;
+}
+
+.ai-prompt-modal.open {
+  pointer-events: auto;
+  opacity: 1;
+}
+
+.ai-prompt-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(4px);
+}
+
+.ai-prompt-content {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 24px;
+  transform: scale(0.9);
+  transition: transform 0.3s cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+.ai-prompt-modal.open .ai-prompt-content {
+  transform: scale(1);
+}
+
+.ai-prompt-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.1rem;
+  color: var(--text);
+  margin-bottom: 14px;
+}
+
+.ai-prompt-input {
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 12px;
+  background: var(--bg);
+  color: var(--text);
+  font-size: 0.9rem;
+  font-family: 'Inter', 'Noto Sans Bengali', sans-serif;
+  line-height: 1.5;
+  resize: none;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.ai-prompt-input:focus {
+  border-color: var(--accent);
+}
+
+.ai-prompt-input::placeholder {
+  color: var(--text-muted);
+}
+
+.ai-prompt-actions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+  margin-top: 14px;
+}
+
+.ai-prompt-btn {
+  padding: 8px 18px;
+  border: none;
+  border-radius: 10px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: 'Inter', 'Noto Sans Bengali', sans-serif;
+}
+
+.ai-prompt-btn.primary {
+  background: var(--accent);
+  color: var(--badge-text);
+}
+
+.ai-prompt-btn.secondary {
+  background: var(--bg);
+  color: var(--text-secondary);
+  border: 1px solid var(--border);
+}
+
+.ai-prompt-btn:active {
+  transform: scale(0.95);
+}
+
+/* ---- Editor App Layout ---- */
+.editor-app {
+  max-width: 480px;
+  margin: 0 auto;
+  min-height: 100vh;
+  padding-bottom: 60px;
+  display: flex;
+  flex-direction: column;
+}
+
+@media (min-width: 481px) {
+  .editor-app {
+    border-left: 1px solid var(--border-light);
+    border-right: 1px solid var(--border-light);
+  }
+}
