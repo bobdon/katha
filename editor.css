@@ -1,5 +1,6 @@
 /* ========================================
-   KATHA EDITOR — Styles
+   KATHA EDITOR â Simplified for ease of use
+   Large text, clear buttons, minimal clutter
    ======================================== */
 
 /* ---- Login Screen ---- */
@@ -72,7 +73,24 @@
   min-height: 20px;
 }
 
-/* ---- Editor Header ---- */
+/* ---- Editor App Layout ---- */
+.editor-app {
+  max-width: 520px;
+  margin: 0 auto;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 20px;
+}
+
+@media (min-width: 521px) {
+  .editor-app {
+    border-left: 1px solid var(--border-light);
+    border-right: 1px solid var(--border-light);
+  }
+}
+
+/* ---- Header ---- */
 .editor-header {
   display: flex;
   justify-content: space-between;
@@ -114,11 +132,11 @@
 }
 
 .lang-btn {
-  padding: 6px 12px;
+  padding: 8px 14px;
   border: none;
   background: transparent;
   color: var(--text-muted);
-  font-size: 0.78rem;
+  font-size: 0.85rem;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -130,32 +148,17 @@
   color: var(--badge-text);
 }
 
-/* User Avatar */
-.user-avatar {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  overflow: hidden;
-  border: 2px solid var(--border);
-}
-
-.user-avatar img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
+/* Logout */
 .editor-logout {
-  width: 32px;
-  height: 32px;
-  border: none;
-  background: transparent;
+  padding: 8px 14px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--bg-card);
   color: var(--text-muted);
+  font-size: 0.82rem;
+  font-weight: 500;
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 8px;
+  font-family: 'Inter', 'Noto Sans Bengali', sans-serif;
   transition: all 0.2s ease;
 }
 
@@ -164,68 +167,9 @@
   color: var(--accent);
 }
 
-/* ---- Editor Toolbar ---- */
-.editor-toolbar {
-  display: flex;
-  gap: 8px;
-  padding: 10px 16px;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none;
-  border-bottom: 1px solid var(--border-light);
-  background: var(--bg);
-}
-
-.editor-toolbar::-webkit-scrollbar { display: none; }
-
-.toolbar-group {
-  display: flex;
-  gap: 4px;
-}
-
-.toolbar-btn {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  padding: 7px 12px;
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  background: var(--bg-card);
-  color: var(--text-secondary);
-  font-size: 0.78rem;
-  font-weight: 500;
-  cursor: pointer;
-  white-space: nowrap;
-  transition: all 0.2s ease;
-  font-family: 'Inter', 'Noto Sans Bengali', sans-serif;
-}
-
-.toolbar-btn:active {
-  transform: scale(0.95);
-  background: var(--accent-light);
-}
-
-.toolbar-btn.ai-btn {
-  border-color: var(--accent);
-  color: var(--accent);
-}
-
-.toolbar-btn.ai-btn:active {
-  background: var(--accent);
-  color: var(--badge-text);
-}
-
-.ai-icon {
-  font-size: 0.9rem;
-}
-
-.toolbar-label {
-  font-family: 'Inter', 'Noto Sans Bengali', sans-serif;
-}
-
-/* ---- Story Metadata ---- */
-.story-meta-editor {
-  padding: 16px;
+/* ---- Title Section ---- */
+.title-section {
+  padding: 18px 16px 14px;
   border-bottom: 1px solid var(--border-light);
 }
 
@@ -234,53 +178,27 @@
   border: none;
   background: transparent;
   font-family: 'Playfair Display', Georgia, serif;
-  font-size: 1.4rem;
+  font-size: 1.5rem;
   font-weight: 700;
   color: var(--text);
   padding: 0;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
   outline: none;
 }
 
 .story-title-input::placeholder {
   color: var(--text-muted);
-  opacity: 0.6;
-}
-
-.meta-row {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 10px;
-}
-
-.story-author-input {
-  flex: 1;
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 8px 12px;
-  background: var(--bg-card);
-  color: var(--text);
-  font-size: 0.85rem;
-  font-family: 'Inter', 'Noto Sans Bengali', sans-serif;
-  outline: none;
-  transition: border-color 0.2s ease;
-}
-
-.story-author-input:focus {
-  border-color: var(--accent);
-}
-
-.story-author-input::placeholder {
-  color: var(--text-muted);
+  opacity: 0.5;
 }
 
 .story-topic-select {
+  width: 100%;
   border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 8px 12px;
+  border-radius: 12px;
+  padding: 12px 14px;
   background: var(--bg-card);
   color: var(--text);
-  font-size: 0.85rem;
+  font-size: 1rem;
   font-family: 'Inter', 'Noto Sans Bengali', sans-serif;
   outline: none;
   cursor: pointer;
@@ -291,42 +209,31 @@
   border-color: var(--accent);
 }
 
-.title-suggest-btn {
-  border: none;
-  background: transparent;
-  color: var(--accent);
-  font-size: 0.8rem;
-  font-weight: 500;
-  cursor: pointer;
-  padding: 4px 0;
-  font-family: 'Inter', 'Noto Sans Bengali', sans-serif;
-  transition: opacity 0.2s;
-}
-
-.title-suggest-btn:active {
-  opacity: 0.7;
-}
-
-/* ---- Main Editor ---- */
+/* ---- Main Writing Area ---- */
 .editor-body {
   flex: 1;
   padding: 16px;
-  min-height: calc(100vh - 340px);
 }
 
 .editor-textarea {
   width: 100%;
-  min-height: 300px;
-  height: calc(100vh - 380px);
-  border: none;
-  background: transparent;
+  min-height: 250px;
+  height: calc(100vh - 520px);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--bg-card);
   color: var(--text);
   font-family: 'Inter', 'Noto Sans Bengali', sans-serif;
-  font-size: 1rem;
-  line-height: 1.75;
+  font-size: 1.1rem;
+  line-height: 1.8;
   resize: none;
   outline: none;
-  padding: 0;
+  padding: 16px;
+  transition: border-color 0.2s ease;
+}
+
+.editor-textarea:focus {
+  border-color: var(--accent);
 }
 
 .editor-textarea::placeholder {
@@ -340,22 +247,114 @@
   font-family: 'Noto Sans Bengali', 'Inter', sans-serif;
 }
 
-/* ---- AI Panel ---- */
+/* ---- AI Tools Section ---- */
+.ai-tools {
+  padding: 0 16px 12px;
+}
+
+.ai-tools-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 10px;
+  font-family: 'Inter', 'Noto Sans Bengali', sans-serif;
+}
+
+.ai-tools-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.ai-tool-btn {
+  padding: 14px 12px;
+  border: 1px solid var(--accent);
+  border-radius: 14px;
+  background: var(--bg-card);
+  color: var(--accent);
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.2s ease;
+  font-family: 'Inter', 'Noto Sans Bengali', sans-serif;
+}
+
+.ai-tool-btn:active {
+  transform: scale(0.97);
+  background: var(--accent);
+  color: var(--badge-text);
+}
+
+/* ---- Action Buttons ---- */
+.action-buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  padding: 8px 16px 16px;
+}
+
+.action-btn {
+  padding: 16px 12px;
+  border: none;
+  border-radius: 14px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.2s ease;
+  font-family: 'Inter', 'Noto Sans Bengali', sans-serif;
+}
+
+.action-btn:active {
+  transform: scale(0.97);
+}
+
+.action-btn.stories-btn {
+  background: var(--bg-card);
+  color: var(--text-secondary);
+  border: 1px solid var(--border);
+}
+
+.action-btn.new-btn {
+  background: var(--bg-card);
+  color: var(--text-secondary);
+  border: 1px solid var(--border);
+}
+
+.action-btn.save-btn {
+  background: var(--bg-card);
+  color: var(--accent);
+  border: 1px solid var(--accent);
+}
+
+.action-btn.publish-btn {
+  background: var(--accent);
+  color: var(--badge-text);
+}
+
+.action-btn.publish-btn:active {
+  opacity: 0.9;
+}
+
+/* ---- AI Panel (slides up from bottom) ---- */
 .ai-panel {
   position: fixed;
-  bottom: 60px;
+  bottom: 0;
   left: 0;
   right: 0;
-  max-width: 480px;
+  max-width: 520px;
   margin: 0 auto;
   background: var(--bg-card);
-  border-top: 1px solid var(--border);
+  border-top: 2px solid var(--accent);
   border-radius: 20px 20px 0 0;
-  box-shadow: var(--shadow-lg);
+  box-shadow: 0 -4px 30px rgba(0, 0, 0, 0.2);
   transform: translateY(100%);
   transition: transform 0.35s cubic-bezier(0.32, 0.72, 0, 1);
   z-index: 150;
-  max-height: 50vh;
+  max-height: 60vh;
   display: flex;
   flex-direction: column;
 }
@@ -368,46 +367,38 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 14px 16px;
+  padding: 16px 18px;
   border-bottom: 1px solid var(--border-light);
 }
 
 .ai-panel-title {
-  font-weight: 600;
-  font-size: 0.9rem;
+  font-weight: 700;
+  font-size: 1.05rem;
   color: var(--text);
 }
 
-.ai-panel-actions {
-  display: flex;
-  gap: 6px;
-}
-
-.ai-panel-btn {
-  padding: 6px 14px;
-  border: none;
-  border-radius: 8px;
-  font-size: 0.78rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  background: var(--accent);
-  color: var(--badge-text);
-  font-family: 'Inter', 'Noto Sans Bengali', sans-serif;
-}
-
-.ai-panel-btn.secondary {
-  background: var(--bg);
-  color: var(--text-secondary);
+.ai-panel-close {
+  width: 36px;
+  height: 36px;
   border: 1px solid var(--border);
+  border-radius: 50%;
+  background: var(--bg);
+  color: var(--text-muted);
+  font-size: 1.1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
 }
 
-.ai-panel-btn:active {
-  transform: scale(0.95);
+.ai-panel-close:active {
+  background: var(--accent-light);
+  color: var(--accent);
 }
 
 .ai-panel-content {
-  padding: 16px;
+  padding: 18px;
   overflow-y: auto;
   flex: 1;
 }
@@ -415,9 +406,9 @@
 .ai-loading {
   display: none;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
   color: var(--text-muted);
-  font-size: 0.88rem;
+  font-size: 1rem;
 }
 
 .ai-loading.show {
@@ -425,9 +416,9 @@
 }
 
 .ai-spinner {
-  width: 18px;
-  height: 18px;
-  border: 2px solid var(--border);
+  width: 22px;
+  height: 22px;
+  border: 3px solid var(--border);
   border-top-color: var(--accent);
   border-radius: 50%;
   animation: spin 0.8s linear infinite;
@@ -438,77 +429,46 @@
 }
 
 .ai-result {
-  font-size: 0.92rem;
-  line-height: 1.65;
+  font-size: 1.05rem;
+  line-height: 1.75;
   color: var(--text);
   white-space: pre-wrap;
   font-family: 'Inter', 'Noto Sans Bengali', sans-serif;
 }
 
-/* ---- Bottom Bar ---- */
-.editor-bottom {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  max-width: 480px;
-  margin: 0 auto;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 16px calc(10px + env(safe-area-inset-bottom, 0px));
-  background: var(--bg-nav);
-  border-top: 1px solid var(--border-light);
-  z-index: 100;
-}
-
-.word-count {
-  font-size: 0.75rem;
-  color: var(--text-muted);
-  font-weight: 500;
-}
-
-.editor-bottom-actions {
+.ai-panel-actions {
   display: flex;
   gap: 8px;
+  padding: 14px 18px;
+  border-top: 1px solid var(--border-light);
 }
 
-.save-draft-btn {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 8px 14px;
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  background: var(--bg-card);
-  color: var(--text-secondary);
-  font-size: 0.82rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  font-family: 'Inter', 'Noto Sans Bengali', sans-serif;
-}
-
-.save-draft-btn:active {
-  transform: scale(0.95);
-}
-
-.publish-btn {
-  padding: 8px 20px;
+.ai-action-btn {
+  flex: 1;
+  padding: 14px;
   border: none;
-  border-radius: 10px;
-  background: var(--accent);
-  color: var(--badge-text);
-  font-size: 0.85rem;
+  border-radius: 12px;
+  font-size: 0.95rem;
   font-weight: 600;
   cursor: pointer;
+  text-align: center;
   transition: all 0.2s ease;
   font-family: 'Inter', 'Noto Sans Bengali', sans-serif;
 }
 
-.publish-btn:active {
-  transform: scale(0.95);
-  opacity: 0.9;
+.ai-action-btn:active {
+  transform: scale(0.97);
+}
+
+.ai-action-btn.insert-btn {
+  background: var(--accent);
+  color: var(--badge-text);
+}
+
+.ai-action-btn.replace-btn {
+  background: var(--bg);
+  color: var(--text-secondary);
+  border: 1px solid var(--border);
 }
 
 /* ---- Stories List Modal ---- */
@@ -539,9 +499,9 @@
 .stories-modal-content {
   position: relative;
   width: 100%;
-  max-width: 480px;
+  max-width: 520px;
   margin: 0 auto;
-  background: var(--bg-modal);
+  background: var(--bg-modal, var(--bg-card));
   border-radius: 20px 20px 0 0;
   padding: 24px 16px 32px;
   max-height: 70vh;
@@ -556,7 +516,7 @@
 
 .stories-modal-title {
   font-family: 'Playfair Display', Georgia, serif;
-  font-size: 1.15rem;
+  font-size: 1.3rem;
   color: var(--text);
   margin-bottom: 16px;
 }
@@ -571,9 +531,9 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 12px 14px;
+  padding: 14px 16px;
   border: 1px solid var(--border-light);
-  border-radius: 12px;
+  border-radius: 14px;
   background: var(--bg-card);
   cursor: pointer;
   transition: all 0.2s ease;
@@ -581,7 +541,7 @@
 
 .story-list-item:active {
   transform: scale(0.98);
-  background: var(--bg-card-hover);
+  background: var(--bg-card-hover, var(--bg));
 }
 
 .story-list-info {
@@ -591,7 +551,7 @@
 
 .story-list-title {
   font-weight: 600;
-  font-size: 0.9rem;
+  font-size: 1rem;
   color: var(--text);
   white-space: nowrap;
   overflow: hidden;
@@ -599,15 +559,15 @@
 }
 
 .story-list-meta {
-  font-size: 0.75rem;
+  font-size: 0.82rem;
   color: var(--text-muted);
-  margin-top: 2px;
+  margin-top: 3px;
 }
 
 .story-list-status {
-  font-size: 0.7rem;
-  padding: 3px 8px;
-  border-radius: 6px;
+  font-size: 0.78rem;
+  padding: 4px 10px;
+  border-radius: 8px;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.03em;
@@ -625,8 +585,8 @@
 }
 
 .story-list-delete {
-  width: 28px;
-  height: 28px;
+  width: 36px;
+  height: 36px;
   border: none;
   background: transparent;
   color: var(--text-muted);
@@ -634,8 +594,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 6px;
+  border-radius: 8px;
   margin-left: 8px;
+  font-size: 1.2rem;
   transition: all 0.2s ease;
 }
 
@@ -646,21 +607,21 @@
 
 .stories-empty {
   text-align: center;
-  padding: 32px 16px;
+  padding: 40px 16px;
   color: var(--text-muted);
-  font-size: 0.88rem;
+  font-size: 1rem;
 }
 
 .stories-modal-close {
   display: block;
   width: 100%;
-  padding: 12px;
+  padding: 16px;
   margin-top: 16px;
   border: none;
-  border-radius: 12px;
+  border-radius: 14px;
   background: var(--accent);
   color: var(--badge-text);
-  font-size: 0.95rem;
+  font-size: 1.05rem;
   font-weight: 600;
   cursor: pointer;
   font-family: 'Inter', 'Noto Sans Bengali', sans-serif;
@@ -695,11 +656,11 @@
 .ai-prompt-content {
   position: relative;
   width: 100%;
-  max-width: 400px;
+  max-width: 440px;
   background: var(--bg-card);
   border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: 24px;
+  border-radius: 20px;
+  padding: 28px 24px;
   transform: scale(0.9);
   transition: transform 0.3s cubic-bezier(0.32, 0.72, 0, 1);
 }
@@ -710,21 +671,21 @@
 
 .ai-prompt-title {
   font-family: 'Playfair Display', Georgia, serif;
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   color: var(--text);
-  margin-bottom: 14px;
+  margin-bottom: 16px;
 }
 
 .ai-prompt-input {
   width: 100%;
   border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 12px;
+  border-radius: 14px;
+  padding: 14px;
   background: var(--bg);
   color: var(--text);
-  font-size: 0.9rem;
+  font-size: 1.05rem;
   font-family: 'Inter', 'Noto Sans Bengali', sans-serif;
-  line-height: 1.5;
+  line-height: 1.6;
   resize: none;
   outline: none;
   transition: border-color 0.2s ease;
@@ -736,54 +697,38 @@
 
 .ai-prompt-input::placeholder {
   color: var(--text-muted);
+  opacity: 0.7;
 }
 
 .ai-prompt-actions {
   display: flex;
-  gap: 8px;
-  justify-content: flex-end;
-  margin-top: 14px;
+  gap: 10px;
+  margin-top: 16px;
 }
 
 .ai-prompt-btn {
-  padding: 8px 18px;
+  flex: 1;
+  padding: 14px;
   border: none;
-  border-radius: 10px;
-  font-size: 0.85rem;
+  border-radius: 14px;
+  font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s ease;
   font-family: 'Inter', 'Noto Sans Bengali', sans-serif;
 }
 
-.ai-prompt-btn.primary {
+.ai-prompt-btn.go {
   background: var(--accent);
   color: var(--badge-text);
 }
 
-.ai-prompt-btn.secondary {
+.ai-prompt-btn.cancel {
   background: var(--bg);
   color: var(--text-secondary);
   border: 1px solid var(--border);
 }
 
 .ai-prompt-btn:active {
-  transform: scale(0.95);
-}
-
-/* ---- Editor App Layout ---- */
-.editor-app {
-  max-width: 480px;
-  margin: 0 auto;
-  min-height: 100vh;
-  padding-bottom: 60px;
-  display: flex;
-  flex-direction: column;
-}
-
-@media (min-width: 481px) {
-  .editor-app {
-    border-left: 1px solid var(--border-light);
-    border-right: 1px solid var(--border-light);
-  }
+  transform: scale(0.97);
 }
