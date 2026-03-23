@@ -20,7 +20,8 @@
     user: null,
     language: localStorage.getItem('katha-editor-lang') || 'en',
     currentStoryId: null,
-    stories: JSON.parse(localStorage.getItem('katha-stories') || '[]'),
+    stories: [],
+    storiesLoaded: false,
   };
 
   // ---- DOM References ----
@@ -104,10 +105,14 @@
     return JSON.parse(atob(base64));
   }
 
-  function showEditor(user) {
+  async function showEditor(user) {
     state.user = user;
     loginScreen.style.display = 'none';
     editorApp.style.display = 'flex';
+    // Load stories from Cloudflare KV
+    if (!state.storiesLoaded) {
+      await loadStoriesFromKV();
+    }
   }
 
   logoutBtn.addEventListener('click', () => {
@@ -316,7 +321,43 @@
   }
 
   function saveStories() {
+    // Save to localStorage as fast cache
     localStorage.setItem('katha-stories', JSON.stringify(state.stories));
+    // Sync to Cloudflare KV (fire-and-forget)
+    fetch('/api/stories', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ stories: state.stories }),
+    }).catch(err => console.warn('KV sync failed:', err));
+  }
+
+  async function loadStoriesFromKV() {
+    try {
+      const response = await fetch('/api/stories');
+      if (!response.ok) throw new Error('Failed to load stories');
+      const data = await response.json();
+      if (data.stories && data.stories.length > 0) {
+        state.stories = data.stories;
+        localStorage.setItem('katha-stories', JSON.stringify(state.stories));
+      } else {
+        // Fall back to localStorage if KV is empty (first migration)
+        const local = JSON.parse(localStorage.getItem('katha-stories') || '[]');
+        if (local.length > 0) {
+          state.stories = local;
+          // Migrate localStorage stories to KV
+          fetch('/api/stories', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ stories: local }),
+          }).catch(err => console.warn('Migration to KV failed:', err));
+        }
+      }
+      state.storiesLoaded = true;
+    } catch (err) {
+      console.warn('KV load failed, using localStorage:', err);
+      state.stories = JSON.parse(localStorage.getItem('katha-stories') || '[]');
+      state.storiesLoaded = true;
+    }
   }
 
   // New Story
@@ -450,7 +491,7 @@
         const id = btn.dataset.id;
         if (!confirm(state.language === 'bn' ? 'এই গল্পটি মুছে ফেলবেন?' : 'Delete this story?')) return;
         state.stories = state.stories.filter(s => s.id !== id);
-        saveStories();
+        saveStories(); // syncs to both localStorage and KV
         if (state.currentStoryId === id) {
           state.currentStoryId = null;
           storyTitle.value = '';
