@@ -1,5 +1,5 @@
 /* ========================================
-   KATHA — App Logic
+   KATHA â App Logic
    Theme switching, navigation, bookmarks,
    emoji reactions
    ======================================== */
@@ -118,7 +118,7 @@
         if (!state.bookmarks.includes(index)) {
           state.bookmarks.push(index);
         }
-        showToast('Story saved ♡');
+        showToast('Story saved â¡');
       } else {
         state.bookmarks = state.bookmarks.filter(i => i !== index);
         showToast('Removed from saved');
@@ -310,13 +310,73 @@
     closeEmojiPicker();
   });
 
-  // ---- Story card tap ----
+  // ---- Story Reader ----
+  const storyReader = document.getElementById('storyReader');
+  const storyReaderBack = document.getElementById('storyReaderBack');
+  const readerTitle = document.getElementById('readerTitle');
+  const readerDate = document.getElementById('readerDate');
+  const readerTime = document.getElementById('readerTime');
+  const readerText = document.getElementById('readerText');
+
+  function openStoryReader(card) {
+    const title = card.querySelector('.story-title');
+    const excerpt = card.querySelector('.story-excerpt-short');
+    const date = card.querySelector('.story-date');
+    const readTime = card.querySelector('.read-time');
+
+    if (!title || !excerpt) return;
+
+    readerTitle.textContent = title.textContent;
+    readerDate.textContent = date ? date.textContent : '';
+    readerTime.textContent = readTime ? readTime.textContent : '';
+
+    // Get the full text and format it into paragraphs
+    const fullText = excerpt.textContent;
+    // Split on sentence boundaries that look like paragraph breaks
+    // (after dialogue or after periods followed by capital letters with context shifts)
+    const paragraphs = fullText.split(/(?<=[.!?""])\s+(?=[A-Z"""])/).reduce((acc, sentence, i) => {
+      if (i === 0) return [sentence];
+      const last = acc[acc.length - 1];
+      // Start a new paragraph roughly every 2-4 sentences
+      if (last.length > 300 || /[.!?][""]?\s*$/.test(last)) {
+        acc.push(sentence);
+      } else {
+        acc[acc.length - 1] = last + ' ' + sentence;
+      }
+      return acc;
+    }, []);
+
+    readerText.innerHTML = paragraphs.map(p => `<p>${p.trim()}</p>`).join('');
+
+    storyReader.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    storyReader.scrollTop = 0;
+  }
+
+  function closeStoryReader() {
+    storyReader.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  storyReaderBack.addEventListener('click', (e) => {
+    e.stopPropagation();
+    closeStoryReader();
+  });
+
+  // Close on swipe right (mobile)
+  let touchStartX = 0;
+  storyReader.addEventListener('touchstart', (e) => {
+    touchStartX = e.touches[0].clientX;
+  }, { passive: true });
+
+  storyReader.addEventListener('touchend', (e) => {
+    const diff = e.changedTouches[0].clientX - touchStartX;
+    if (diff > 80) closeStoryReader(); // Swipe right to go back
+  }, { passive: true });
+
   document.querySelectorAll('.story-card').forEach(card => {
     card.addEventListener('click', () => {
-      const title = card.querySelector('.story-title');
-      if (title) {
-        showToast(`Opening "${title.textContent}"...`);
-      }
+      openStoryReader(card);
     });
   });
 
