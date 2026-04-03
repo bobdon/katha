@@ -826,6 +826,93 @@ body {
   background: var(--accent-light);
 }
 
+
+/* ========================================
+   Story Reader
+   ======================================== */
+.story-reader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--bg-primary);
+  z-index: 1000;
+  overflow-y: auto;
+  transform: translateX(100%);
+  transition: transform 0.3s ease;
+  -webkit-overflow-scrolling: touch;
+}
+
+.story-reader.open {
+  transform: translateX(0);
+}
+
+.story-reader-header {
+  position: sticky;
+  top: 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  background: var(--bg-primary);
+  border-bottom: 1px solid var(--border);
+  z-index: 10;
+}
+
+.story-reader-back {
+  background: none;
+  border: none;
+  color: var(--accent);
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+}
+
+.story-reader-label {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.story-reader-body {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 24px 20px 80px;
+}
+
+.story-reader-meta {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.story-reader-date,
+.story-reader-time {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+.story-reader-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.3;
+  margin-bottom: 24px;
+}
+
+.story-reader-text {
+  font-size: 1.05rem;
+  line-height: 1.85;
+  color: var(--text-primary);
+}
+
+.story-reader-text p {
+  margin-bottom: 1em;
+}
+
 /* ========================================
    Utilities & Animations
    ======================================== */
