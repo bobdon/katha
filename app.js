@@ -403,9 +403,72 @@
     }, 2000);
   }
 
+  // ---- Topic Filtering ----
+  const topicsGrid = document.querySelector('.topics-grid');
+  const topicStoriesContainer = document.getElementById('topicStoriesContainer');
+  const topicBackBtn = document.getElementById('topicBackBtn');
+  const topicBackLabel = document.getElementById('topicBackLabel');
+  const topicCards = document.querySelectorAll('.topic-card');
+  const topicStories = document.querySelectorAll('.topic-story');
+
+  // Initially hide all topic stories, show just the grid
+  if (topicStoriesContainer) {
+    topicStoriesContainer.style.display = 'none';
+  }
+
+  function showTopicStories(topicId, topicName) {
+    if (topicsGrid) topicsGrid.style.display = 'none';
+    if (topicBackBtn) {
+      topicBackBtn.style.display = 'flex';
+      topicBackLabel.textContent = topicName;
+    }
+    if (topicStoriesContainer) topicStoriesContainer.style.display = 'block';
+    topicStories.forEach(story => {
+      story.style.display = story.dataset.topic === topicId ? '' : 'none';
+    });
+    topicCards.forEach(card => {
+      card.classList.toggle('active', card.dataset.topic === topicId);
+    });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function showAllTopics() {
+    if (topicsGrid) topicsGrid.style.display = '';
+    if (topicBackBtn) topicBackBtn.style.display = 'none';
+    if (topicStoriesContainer) topicStoriesContainer.style.display = 'none';
+    topicCards.forEach(card => card.classList.remove('active'));
+  }
+
+  topicCards.forEach(card => {
+    card.addEventListener('click', () => {
+      const topicId = card.dataset.topic;
+      const topicName = card.querySelector('.topic-name').textContent;
+      showTopicStories(topicId, topicName);
+    });
+  });
+
+  if (topicBackBtn) {
+    topicBackBtn.addEventListener('click', showAllTopics);
+  }
+
+  // Reset topics view when switching sections
+  navTabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      if (tab.dataset.section !== 'topics') showAllTopics();
+    });
+  });
+  bottomNavItems.forEach(item => {
+    if (item.dataset.section) {
+      item.addEventListener('click', () => {
+        if (item.dataset.section !== 'topics') showAllTopics();
+      });
+    }
+  });
+
   // ---- Passive touch listeners for smooth scrolling ----
   document.querySelectorAll('.story-card, .topic-card').forEach(el => {
     el.addEventListener('touchstart', () => {}, { passive: true });
   });
 
 })();
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                

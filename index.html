@@ -324,42 +324,42 @@
         <h2 class="section-title">Explore the darkness</h2>
       </div>
       <div class="topics-grid">
-        <button class="topic-card">
+        <button class="topic-card" data-topic="ghosts">
           <span class="topic-emoji">👻</span>
           <span class="topic-name">Ghosts</span>
           <span class="topic-count">24 stories</span>
         </button>
-        <button class="topic-card">
+        <button class="topic-card" data-topic="crime-thriller">
           <span class="topic-emoji">🔪</span>
           <span class="topic-name">Crime Thriller</span>
           <span class="topic-count">31 stories</span>
         </button>
-        <button class="topic-card">
+        <button class="topic-card" data-topic="haunted-places">
           <span class="topic-emoji">🏚️</span>
           <span class="topic-name">Haunted Places</span>
           <span class="topic-count">18 stories</span>
         </button>
-        <button class="topic-card">
+        <button class="topic-card" data-topic="survival">
           <span class="topic-emoji">🧟</span>
           <span class="topic-name">Survival</span>
           <span class="topic-count">14 stories</span>
         </button>
-        <button class="topic-card">
+        <button class="topic-card" data-topic="mystery">
           <span class="topic-emoji">🕵️</span>
           <span class="topic-name">Mystery</span>
           <span class="topic-count">27 stories</span>
         </button>
-        <button class="topic-card">
+        <button class="topic-card" data-topic="paranormal">
           <span class="topic-emoji">😈</span>
           <span class="topic-name">Paranormal</span>
           <span class="topic-count">19 stories</span>
         </button>
-        <button class="topic-card">
+        <button class="topic-card" data-topic="dark-folklore">
           <span class="topic-emoji">🌙</span>
           <span class="topic-name">Dark Folklore</span>
           <span class="topic-count">15 stories</span>
         </button>
-        <button class="topic-card">
+        <button class="topic-card" data-topic="psychological">
           <span class="topic-emoji">🧠</span>
           <span class="topic-name">Psychological</span>
           <span class="topic-count">22 stories</span>
@@ -367,8 +367,15 @@
       </div>
     
 
+<!-- Topic Back Button -->
+      <button class="topic-back-btn" id="topicBackBtn" style="display:none;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        <span id="topicBackLabel">All Topics</span>
+      </button>
+
 <!-- Topic Stories -->
-      <article class="story-card">
+      <div class="topic-stories-container" id="topicStoriesContainer">
+      <article class="story-card topic-story" data-topic="ghosts">
         <div class="story-card-row">
           <div class="story-body">
             <div class="story-meta">
@@ -399,7 +406,7 @@
         </div>
       </article>
 
-      <article class="story-card">
+      <article class="story-card topic-story" data-topic="crime-thriller">
         <div class="story-card-row">
           <div class="story-body">
             <div class="story-meta">
@@ -430,7 +437,7 @@
         </div>
       </article>
 
-      <article class="story-card">
+      <article class="story-card topic-story" data-topic="haunted-places">
         <div class="story-card-row">
           <div class="story-body">
             <div class="story-meta">
@@ -461,7 +468,7 @@
         </div>
       </article>
 
-      <article class="story-card">
+      <article class="story-card topic-story" data-topic="survival">
         <div class="story-card-row">
           <div class="story-body">
             <div class="story-meta">
@@ -492,7 +499,7 @@
         </div>
       </article>
 
-      <article class="story-card">
+      <article class="story-card topic-story" data-topic="mystery">
         <div class="story-card-row">
           <div class="story-body">
             <div class="story-meta">
@@ -523,7 +530,7 @@
         </div>
       </article>
 
-      <article class="story-card">
+      <article class="story-card topic-story" data-topic="paranormal">
         <div class="story-card-row">
           <div class="story-body">
             <div class="story-meta">
@@ -554,7 +561,7 @@
         </div>
       </article>
 
-      <article class="story-card">
+      <article class="story-card topic-story" data-topic="dark-folklore">
         <div class="story-card-row">
           <div class="story-body">
             <div class="story-meta">
@@ -585,7 +592,7 @@
         </div>
       </article>
 
-      <article class="story-card">
+      <article class="story-card topic-story" data-topic="psychological">
         <div class="story-card-row">
           <div class="story-body">
             <div class="story-meta">
@@ -615,6 +622,7 @@
           </div>
         </div>
       </article>
+      </div><!-- /topic-stories-container -->
 
     </section>
 
@@ -687,3 +695,4 @@
   <script src="app.js"></script>
 </body>
 </html>
+          

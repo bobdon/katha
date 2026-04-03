@@ -627,6 +627,35 @@ body {
   transform: scale(0.96);
 }
 
+.topic-card.active {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px var(--accent);
+}
+
+.topic-back-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: none;
+  color: var(--accent);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 8px 4px;
+  margin-bottom: 12px;
+  transition: opacity 0.2s ease;
+}
+
+.topic-back-btn:hover {
+  opacity: 0.7;
+}
+
+.topic-back-btn svg {
+  stroke: var(--accent);
+}
+
 .topic-emoji {
   font-size: 1.8rem;
 }
@@ -957,26 +986,3 @@ body {
   transition: all 0.3s cubic-bezier(0.32, 0.72, 0, 1);
   z-index: 200;
   white-space: nowrap;
-}
-
-.toast.show {
-  opacity: 1;
-  transform: translateX(-50%) translateY(0);
-}
-
-/* Max width wrapper for larger screens */
-@media (min-width: 481px) {
-  body {
-    max-width: 480px;
-    margin: 0 auto;
-    border-left: 1px solid var(--border-light);
-    border-right: 1px solid var(--border-light);
-    min-height: 100vh;
-  }
-
-  .bottom-nav {
-    max-width: 480px;
-    left: 50%;
-    transform: translateX(-50%);
-  }
-}
