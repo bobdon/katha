@@ -10,6 +10,7 @@
   // ---- State ----
   const state = {
     currentTheme: localStorage.getItem('katha-theme') || 'warm',
+    currentLang: localStorage.getItem('katha-lang') || 'en',
     currentSection: 'featured',
     bookmarks: JSON.parse(localStorage.getItem('katha-bookmarks') || '[]'),
     reactions: JSON.parse(localStorage.getItem('katha-reactions') || '{}'),
@@ -65,6 +66,65 @@
 
   // Initialize theme
   setTheme(state.currentTheme);
+
+  // ---- Language Toggle ----
+  const langToggle = document.getElementById('langToggle');
+  const langLabel = langToggle ? langToggle.querySelector('.lang-label') : null;
+
+  function setLang(lang) {
+    state.currentLang = lang;
+    document.documentElement.setAttribute('data-lang', lang);
+    localStorage.setItem('katha-lang', lang);
+
+    // Update toggle button text
+    if (langLabel) {
+      langLabel.textContent = lang === 'en' ? 'EN' : '\u09AC\u09BE\u0982';
+      langToggle.title = lang === 'en' ? 'Switch to Bengali' : 'Switch to English';
+    }
+
+    // Swap all elements with data-en / data-bn attributes
+    document.querySelectorAll('[data-en][data-bn]').forEach(function(el) {
+      el.textContent = lang === 'en' ? el.getAttribute('data-en') : el.getAttribute('data-bn');
+    });
+
+    // Swap story titles (data-bn-title on h3.story-title)
+    document.querySelectorAll('.story-title[data-bn-title]').forEach(function(el) {
+      if (lang === 'bn') {
+        if (!el.getAttribute('data-en-title')) {
+          el.setAttribute('data-en-title', el.textContent);
+        }
+        el.textContent = el.getAttribute('data-bn-title');
+      } else {
+        if (el.getAttribute('data-en-title')) {
+          el.textContent = el.getAttribute('data-en-title');
+        }
+      }
+    });
+
+    // Swap story text (data-bn-text on p.story-excerpt-short)
+    document.querySelectorAll('.story-excerpt-short[data-bn-text]').forEach(function(el) {
+      if (lang === 'bn') {
+        if (!el.getAttribute('data-en-text')) {
+          el.setAttribute('data-en-text', el.textContent);
+        }
+        el.textContent = el.getAttribute('data-bn-text');
+      } else {
+        if (el.getAttribute('data-en-text')) {
+          el.textContent = el.getAttribute('data-en-text');
+        }
+      }
+    });
+  }
+
+  if (langToggle) {
+    langToggle.addEventListener('click', function() {
+      setLang(state.currentLang === 'en' ? 'bn' : 'en');
+      showToast(state.currentLang === 'en' ? 'Language: English' : '\u09AD\u09BE\u09B7\u09BE: \u09AC\u09BE\u0982\u09B2\u09BE');
+    });
+  }
+
+  // Initialize language
+  setLang(state.currentLang);
 
   // ---- Navigation ----
   function switchSection(sectionId) {
@@ -326,25 +386,50 @@
 
     if (!title || !excerpt) return;
 
-    readerTitle.textContent = title.textContent;
+    // Use Bengali content if language is set to bn
+    var titleText, fullText;
+    if (state.currentLang === 'bn' && title.getAttribute('data-bn-title')) {
+      titleText = title.getAttribute('data-bn-title');
+    } else {
+      titleText = title.getAttribute('data-en-title') || title.textContent;
+    }
+    if (state.currentLang === 'bn' && excerpt.getAttribute('data-bn-text')) {
+      fullText = excerpt.getAttribute('data-bn-text');
+    } else {
+      fullText = excerpt.getAttribute('data-en-text') || excerpt.textContent;
+    }
+
+    readerTitle.textContent = titleText;
     readerDate.textContent = date ? date.textContent : '';
     readerTime.textContent = readTime ? readTime.textContent : '';
 
     // Get the full text and format it into paragraphs
-    const fullText = excerpt.textContent;
-    // Split on sentence boundaries that look like paragraph breaks
-    // (after dialogue or after periods followed by capital letters with context shifts)
-    const paragraphs = fullText.split(/(?<=[.!?""])\s+(?=[A-Z"""])/).reduce((acc, sentence, i) => {
-      if (i === 0) return [sentence];
-      const last = acc[acc.length - 1];
-      // Start a new paragraph roughly every 2-4 sentences
-      if (last.length > 300 || /[.!?][""]?\s*$/.test(last)) {
-        acc.push(sentence);
-      } else {
-        acc[acc.length - 1] = last + ' ' + sentence;
-      }
-      return acc;
-    }, []);
+    var paragraphs;
+    if (state.currentLang === 'bn') {
+      // Bengali: split on danda (।) or common sentence-ending punctuation
+      paragraphs = fullText.split(/(?<=[।!?"""\u201D])\s+/).reduce(function(acc, sentence, i) {
+        if (i === 0) return [sentence];
+        var last = acc[acc.length - 1];
+        if (last.length > 250 || /[।!?"""\u201D]\s*$/.test(last)) {
+          acc.push(sentence);
+        } else {
+          acc[acc.length - 1] = last + ' ' + sentence;
+        }
+        return acc;
+      }, []);
+    } else {
+      // English: split on sentence boundaries
+      paragraphs = fullText.split(/(?<=[.!?""\u201D])\s+(?=[A-Z""\u201C])/).reduce(function(acc, sentence, i) {
+        if (i === 0) return [sentence];
+        var last = acc[acc.length - 1];
+        if (last.length > 300 || /[.!?""\u201D]\s*$/.test(last)) {
+          acc.push(sentence);
+        } else {
+          acc[acc.length - 1] = last + ' ' + sentence;
+        }
+        return acc;
+      }, []);
+    }
 
     readerText.innerHTML = paragraphs.map(p => `<p>${p.trim()}</p>`).join('');
 
@@ -471,3 +556,4 @@
   });
 
 })();
+// end
